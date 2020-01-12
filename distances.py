@@ -15,7 +15,7 @@ class OptimumPoint(object):
     def __init__(self, x, y, f):
         self.x = x
         self.y = y
-        self.f = f
+        self.function_value = f
 
     def __str__(self):
         return f'minimal distance = {self.f}\nargs: ({self.x}, {self.y})'
