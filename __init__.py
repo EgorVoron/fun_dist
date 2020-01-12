@@ -16,7 +16,6 @@ def func2func(func_a, func_b, init_args=(0, 0), maxiter=1000):
     return dist.find_minimal_dist(init_args, maxiter)
 
 
-
 def point2func(*, func, point_x, point_y, init_args=(0, 0), maxiter=1000):
     dist = DistanceBetweenPointAndFunction(func, point_x, point_y)
     return dist.find_minimal_dist(init_args, maxiter)
