@@ -1,7 +1,5 @@
 # fun_dist
-Telegram client on your console
-
-![telegram](https://user-images.githubusercontent.com/18473198/37569384-a4d32e70-2af2-11e8-948c-5a177b384657.png)
+A python package that provides functions for calculating minimal distance between functions and other math objects
 
 ### Dependencies
 * [Numpy](https://github.com/numpy/numpy)
