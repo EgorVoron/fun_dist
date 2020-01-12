@@ -7,20 +7,16 @@ A python package that provides functions for calculating minimal distance betwee
 * [Matplotlib](https://github.com/matplotlib/matplotlib)
 
 ### Example
-```import fun_dist
-
+```
+import fun_dist
 
 def a(x):
     return x ** 2
 
-
 def b(x):
     return -(x + 4) ** 2 - 3
 
-
 dist = fun_dist.func2func(a, b)
 min_x, min_y, min_value = dist.x, dist.y, dist.function_value
-print(min_x, min_y, min_value)```
+print(min_x, min_y, min_value)  # -0.4533706443806599 -3.5466394759302813 4.604756632753063```
 
-### Installation
-```Installation sucks```
