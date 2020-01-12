@@ -18,5 +18,4 @@ def b(x):
 
 dist = fun_dist.func2func(a, b)
 min_x, min_y, min_value = dist.x, dist.y, dist.function_value
-print(min_x, min_y, min_value)  # -0.4533706443806599 -3.5466394759302813 4.604756632753063```
-
+print(min_x, min_y, min_value)  # -0.4533706443806599 -3.5466394759302813 4.604756632753063
