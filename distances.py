@@ -18,7 +18,7 @@ class OptimumPoint(object):
         self.function_value = f
 
     def __str__(self):
-        return f'minimal distance = {self.f}\nargs: ({self.x}, {self.y})'
+        return f'minimal distance = {self.function_value}\nargs: ({self.x}, {self.y})'
 
 
 class AbstractDistance(object):
