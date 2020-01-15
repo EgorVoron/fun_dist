@@ -54,29 +54,11 @@ class DistanceBetweenPointAndFunction(Distance):
         return point2point(self.a_x, self.a_y, x, self.func(x))
 
 
-class Circle(object):
-    def __init__(self, center_x, center_y, radius):
-        self.center_x = center_x
-        self.center_y = center_y
-        self.radius = radius
-
-    def positive_func(self, x):
-        return (self.radius - (x - self.center_x) ** 2) ** 0.5 - self.radius
-
-    def negative_func(self, x):
-        return -self.positive_func(x)
-
-
 class DistanceBetweenFunctionAndCircle(Distance):
     def __init__(self, func, circle_center_x, circle_center_y, circle_radius):
         self.func = func
-        self.circle = Circle(circle_center_x, circle_center_y, circle_radius)
-        self.positive_func = self.circle.positive_func
-        self.negative_func = self.circle.negative_func
+        self.center_x, self.center_y, self.r = circle_center_x, circle_center_y, circle_radius
 
-    def dist_func(self, arguments):
-        x_r = arguments[0]
-        x_f = arguments[1]
-        dist_1 = point2point(x_r, self.positive_func(x_r), x_f, self.func(x_f))
-        dist_2 = point2point(x_r, self.negative_func(x_r), x_f, self.func(x_f))
-        return min(dist_1, dist_2)
+    def dist_func(self, argument):
+        x = argument[0]
+        return point2point(self.center_x, self.center_y, x, self.func(x)) - self.r
