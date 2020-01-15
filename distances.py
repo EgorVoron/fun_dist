@@ -21,15 +21,13 @@ class OptimumPoint(object):
         return f'minimal distance = {self.function_value}\nargs: ({self.x}, {self.y})'
 
 
-class AbstractDistance(object):
+class Distance(object):
     def dist_func(self, *args):
         pass
 
-
-class Distance(AbstractDistance):
     def find_minimal_dist(self, *args):
-        init_args, maxiter = args
-        min_args = fmin(self.dist_func, init_args, maxiter=maxiter, disp=False)
+        init_args, max_iter = args
+        min_args = fmin(self.dist_func, init_args, maxiter=max_iter, disp=False)
         return OptimumPoint(min_args[0], min_args[1], self.dist_func(min_args))
 
 
