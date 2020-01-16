@@ -1,8 +1,9 @@
 from scipy.optimize import fmin
+from math import sqrt
 
 
 def pythagoras(dx, dy):
-    return (dx ** 2 + dy ** 2) ** 0.5
+    return sqrt(dx ** 2 + dy ** 2)
 
 
 def point2point(point1_x, point1_y, point2_x, point2_y):
