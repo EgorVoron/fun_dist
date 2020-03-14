@@ -13,9 +13,9 @@ def point2point(point1_x, point1_y, point2_x, point2_y):
 
 
 class OptimumPoint(object):
-    def __init__(self, x, y, f):
-        self.x = x
-        self.y = y
+    def __init__(self, x1, x2, f):
+        self.x1 = x1
+        self.x2 = x2
         self.function_value = f
 
     def __str__(self):
