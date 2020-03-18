@@ -12,6 +12,10 @@ def point2point(point1_x, point1_y, point2_x, point2_y):
     return pythagoras(dx, dy)
 
 
+def tangent_len(point_x, point_y, circle_center_x, circle_center_y, circle_radius):
+    return sqrt(point2point(point_x, point_y, circle_center_x, circle_center_y)**2 - circle_radius**2)
+
+
 class OptimumPoint(object):
     def __init__(self, x1, x2, f):
         self.x1 = x1
