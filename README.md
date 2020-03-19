@@ -1,21 +1,19 @@
 # fun_dist
-A python package that provides functions for calculating minimal distance between functions and other math objects
+A python package, that provides functions for calculating distances between points, functions, circles and finding tangents of functions and circles
 
 ### Dependencies
-* [Numpy](https://github.com/numpy/numpy)
 * [Scipy](https://github.com/scipy/scipy)
-* [Matplotlib](https://github.com/matplotlib/matplotlib)
 
 ### Example
 ```
-import fun_dist
+from fun_dist import func2func
 
 def a(x):
-    return x ** 2
+    return -2 * x + 2
+
 
 def b(x):
-    return -(x + 4) ** 2 - 3
+    return (x - 4) ** 2
 
-dist = fun_dist.func2func(a, b)
-min_x, min_y, min_value = dist.x, dist.y, dist.function_value
-print(min_x, min_y, min_value)  # -0.4533706443806599 -3.5466394759302813 4.604756632753063
+print(func2func(a, b).distance)  # 2.2360679793027156
+```
