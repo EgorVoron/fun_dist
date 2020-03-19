@@ -1,39 +1,35 @@
 from scipy.optimize import fmin
 from math import sqrt
+from objects import Point, Circle
 
 
 def pythagoras(dx, dy):
     return sqrt(dx ** 2 + dy ** 2)
 
 
-def point2point(point1_x, point1_y, point2_x, point2_y):
-    dx = point1_x - point2_x
-    dy = point1_y - point2_y
+def point2point(point_1: Point, point_2: Point):
+    dx = point_1.x - point_2.x
+    dy = point_1.y - point_2.y
     return pythagoras(dx, dy)
 
 
-def tangent_len(point_x, point_y, circle_center_x, circle_center_y, circle_radius):
-    return sqrt(point2point(point_x, point_y, circle_center_x, circle_center_y)**2 - circle_radius**2)
-
-
 class OptimumPoint(object):
-    def __init__(self, x1, x2, f):
-        self.x1 = x1
-        self.x2 = x2
-        self.function_value = f
+    def __init__(self, distance: float, args: list):
+        self.minimal_args = args
+        self.distance = distance
 
     def __str__(self):
-        return f'minimal distance = {self.function_value}\nargs: ({self.x}, {self.y})'
+        return f'minimal distance = {self.distance}\nargs: ({self.minimal_args})'
 
 
 class Distance(object):
     def dist_func(self, *args):
-        pass
+        return 0
 
     def find_minimal_dist(self, *args):
         init_args, max_iter = args
         min_args = fmin(self.dist_func, init_args, maxiter=max_iter, disp=False)
-        return OptimumPoint(min_args[0], min_args[1], self.dist_func(min_args))
+        return OptimumPoint(self.dist_func(min_args), min_args)
 
 
 class DistanceBetweenFunctions(Distance):
@@ -43,25 +39,47 @@ class DistanceBetweenFunctions(Distance):
 
     def dist_func(self, arguments):
         x_a, x_b = arguments
-        return point2point(x_a, self.func_a(x_a), x_b, self.func_b(x_b))
+        point_a = Point(x_a, self.func_a(x_a))
+        point_b = Point(x_b, self.func_b(x_b))
+        return point2point(point_a, point_b)
 
 
 class DistanceBetweenPointAndFunction(Distance):
-    def __init__(self, func, a_x, a_y):
+    def __init__(self, point: Point, func):
         self.func = func
-        self.a_x = a_x
-        self.a_y = a_y
+        self.point = point
 
     def dist_func(self, argument):
         x = argument[0]
-        return point2point(self.a_x, self.a_y, x, self.func(x))
+        point_on_func = Point(x, self.func(x))
+        return point2point(self.point, point_on_func)
 
 
 class DistanceBetweenFunctionAndCircle(Distance):
-    def __init__(self, func, circle_center_x, circle_center_y, circle_radius):
+    def __init__(self, circle: Circle, func):
         self.func = func
-        self.center_x, self.center_y, self.r = circle_center_x, circle_center_y, circle_radius
+        self.circle = circle
 
     def dist_func(self, argument):
         x = argument[0]
-        return point2point(self.center_x, self.center_y, x, self.func(x)) - self.r
+        point_on_func = Point(x, self.func(x))
+        return point2point(self.circle.center, point_on_func) - self.circle.rad
+
+
+def point2func(*, point: Point, func, init_args=(0, 0), maxiter=500):
+    dist = DistanceBetweenPointAndFunction(point=point, func=func)
+    return dist.find_minimal_dist(init_args, maxiter)
+
+
+def func2func(func_a, func_b, init_args=(0, 0), maxiter=500):
+    dist = DistanceBetweenFunctions(func_a=func_a, func_b=func_b)
+    return dist.find_minimal_dist(init_args, maxiter)
+
+
+def point2circle(*, point: Point, circle: Circle):
+    return point2point(point_1=point, point_2=circle.center) - circle.rad
+
+
+def func2circle(*, circle: Circle, func, init_args=(0, 0), maxiter=500):
+    dist = DistanceBetweenFunctionAndCircle(circle=circle, func=func)
+    return dist.find_minimal_dist(init_args, maxiter)
