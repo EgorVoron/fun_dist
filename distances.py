@@ -13,13 +13,13 @@ def point2point(point_1: Point, point_2: Point):
     return pythagoras(dx, dy)
 
 
-class OptimumPoint(object):
+class Optimum(object):
     def __init__(self, distance: float, args: list):
-        self.minimal_args = args
+        self.args = args
         self.distance = distance
 
     def __str__(self):
-        return f'minimal distance = {self.distance}\nargs: ({self.minimal_args})'
+        return f'distance = {self.distance}\nargs: ({self.args})'
 
 
 class Distance(object):
@@ -29,7 +29,7 @@ class Distance(object):
     def find_minimal_dist(self, *args):
         init_args, max_iter = args
         min_args = fmin(self.dist_func, init_args, maxiter=max_iter, disp=False)
-        return OptimumPoint(self.dist_func(min_args), min_args)
+        return Optimum(self.dist_func(min_args), min_args)
 
 
 class DistanceBetweenFunctions(Distance):
@@ -66,20 +66,20 @@ class DistanceBetweenFunctionAndCircle(Distance):
         return point2point(self.circle.center, point_on_func) - self.circle.rad
 
 
-def point2func(*, point: Point, func, init_args=(0, 0), maxiter=500):
+def point2func(*, point: Point, func, init_args=(0, 0), maxiter=500) -> Optimum:
     dist = DistanceBetweenPointAndFunction(point=point, func=func)
     return dist.find_minimal_dist(init_args, maxiter)
 
 
-def func2func(func_a, func_b, init_args=(0, 0), maxiter=500):
+def func2func(func_a, func_b, init_args=(0, 0), maxiter=500) -> Optimum:
     dist = DistanceBetweenFunctions(func_a=func_a, func_b=func_b)
     return dist.find_minimal_dist(init_args, maxiter)
 
 
-def point2circle(*, point: Point, circle: Circle):
+def point2circle(*, point: Point, circle: Circle) -> float:
     return point2point(point_1=point, point_2=circle.center) - circle.rad
 
 
-def func2circle(*, circle: Circle, func, init_args=(0, 0), maxiter=500):
+def func2circle(*, circle: Circle, func, init_args=(0, 0), maxiter=500) -> Optimum:
     dist = DistanceBetweenFunctionAndCircle(circle=circle, func=func)
     return dist.find_minimal_dist(init_args, maxiter)
