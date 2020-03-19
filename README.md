@@ -1,5 +1,5 @@
 # fun_dist
-A python package, that provides functions for calculating distances between points, functions, circles and finding tangents of functions and circles
+A python package, that provides functions for calculating **distances** between points, functions, circles and finding **tangents** of functions and circles
 
 ### Dependencies
 * [Scipy](https://github.com/scipy/scipy)
