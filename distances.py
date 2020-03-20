@@ -44,6 +44,16 @@ class DistanceBetweenFunctions(Distance):
         return point2point(point_a, point_b)
 
 
+def func2func(func_a, func_b, init_args=(0, 0), maxiter=500) -> Optimum:
+    dist = DistanceBetweenFunctions(func_a=func_a, func_b=func_b)
+    result = dist.find_minimal_dist(init_args, maxiter)
+    min_args = result.args
+    if abs(func_a(min_args[0]) - func_b(min_args[1])) < 0.000001:
+        result.distance = 0
+        print('FUNCTIONS INTERSECT')
+    return result
+
+
 class DistanceBetweenPointAndFunction(Distance):
     def __init__(self, point: Point, func):
         self.func = func
@@ -53,6 +63,11 @@ class DistanceBetweenPointAndFunction(Distance):
         x = argument[0]
         point_on_func = Point(x, self.func(x))
         return point2point(self.point, point_on_func)
+
+
+def point2func(*, point: Point, func, init_args=(0, 0), maxiter=500) -> Optimum:
+    dist = DistanceBetweenPointAndFunction(point=point, func=func)
+    return dist.find_minimal_dist(init_args, maxiter)
 
 
 class DistanceBetweenFunctionAndCircle(Distance):
@@ -66,20 +81,16 @@ class DistanceBetweenFunctionAndCircle(Distance):
         return point2point(self.circle.center, point_on_func) - self.circle.rad
 
 
-def point2func(*, point: Point, func, init_args=(0, 0), maxiter=500) -> Optimum:
-    dist = DistanceBetweenPointAndFunction(point=point, func=func)
-    return dist.find_minimal_dist(init_args, maxiter)
-
-
-def func2func(func_a, func_b, init_args=(0, 0), maxiter=500) -> Optimum:
-    dist = DistanceBetweenFunctions(func_a=func_a, func_b=func_b)
-    return dist.find_minimal_dist(init_args, maxiter)
-
-
-def point2circle(*, point: Point, circle: Circle) -> float:
-    return point2point(point_1=point, point_2=circle.center) - circle.rad
-
-
 def func2circle(*, circle: Circle, func, init_args=(0, 0), maxiter=500) -> Optimum:
     dist = DistanceBetweenFunctionAndCircle(circle=circle, func=func)
     return dist.find_minimal_dist(init_args, maxiter)
+
+
+def point_in_circle(point: Point, circle: Circle):
+    return ((point.x - circle.center.x) ** 2 + (point.y - circle.center.x) ** 2) <= circle.rad ** 2
+
+
+def point2circle(*, point: Point, circle: Circle) -> float:
+    if point_in_circle(point, circle):
+        print('POINT INSIDE THE CIRCLE')
+    return point2point(point_1=point, point_2=circle.center) - circle.rad
