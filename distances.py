@@ -16,7 +16,7 @@ def point2point(point_1: Point, point_2: Point):
 class Optimum(object):
     def __init__(self, distance: float, args: list):
         self.args = args
-        self.distance = distance
+        self.distance = round(distance, 6)
 
     def __str__(self):
         return f'distance = {self.distance}\nargs: ({self.args})'
@@ -66,6 +66,8 @@ class DistanceBetweenPointAndFunction(Distance):
 
 
 def point2func(*, point: Point, func, init_args=(0, 0), maxiter=500) -> Optimum:
+    if func(point.x) == point.y:
+        return Optimum(distance=0, args=[point.x])
     dist = DistanceBetweenPointAndFunction(point=point, func=func)
     return dist.find_minimal_dist(init_args, maxiter)
 
