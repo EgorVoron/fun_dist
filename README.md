@@ -2,6 +2,7 @@
 A python package, that provides functions for calculating **distances** between points, functions, circles and finding **tangents** of functions and circles
 
 ### Dependencies
+* Python3 >= 3.6
 * [Scipy](https://github.com/scipy/scipy)
 
 ### Example
