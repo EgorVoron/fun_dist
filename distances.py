@@ -16,7 +16,7 @@ def point2point(point_1: Point, point_2: Point):
 class Optimum(object):
     def __init__(self, distance: float, args: list):
         self.args = args
-        self.distance = round(distance, 6)
+        self.distance = distance
 
     def __str__(self):
         return f'distance = {self.distance}\nargs: ({self.args})'
