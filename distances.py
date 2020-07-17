@@ -117,10 +117,10 @@ class DistanceBetweenPointAndEllipse(Distance):
     def dist_func(self, argument):
         theta = argument[0]
         return sqrt(self.polar_point.r ** 2 - 2 * self.polar_point.r * self.polar_ellipse.polar_func(theta)
-                    * cos(self.polar_point.theta + theta) + self.polar_ellipse.polar_func(theta) ** 2)
+                    * cos(self.polar_point.theta - theta) + self.polar_ellipse.polar_func(theta) ** 2)
 
 
-def point2ellipse(*, point: Point, ellipse: Ellipse, init_args=(0, 0), maxiter=500):
+def point2ellipse(*, point: Point, ellipse: Ellipse, init_args=(0), maxiter=500):
     if point_in_ellipse(point, ellipse):
         print('POINT INSIDE THE ELLIPSE')
     point_in_polar = Point(point.x - ellipse.center.x, point.y - ellipse.center.y)
