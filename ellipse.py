@@ -31,7 +31,14 @@ def get_nearest_point(A: Point, a: float, b: float):
     return Point(ans, f(ans, a, b))
 
 
+def point_in_ellipse(point: Point, ellipse: Ellipse):
+    return (point.x / ellipse.a) ** 2 + (point.y / ellipse.b) ** 2 <= 1
+
+
 def point2ellipse(point: Point, ellipse: Ellipse):
+    if point2ellipse(point, ellipse):
+        print('POINT INSIDE THE ELLIPSE')
+        return 0
     point.change_system(dx=ellipse.center.x, dy=ellipse.center.y)
     nearest_point = get_nearest_point(point, ellipse.a, ellipse.b)
     return D(point, nearest_point.x, ellipse.a, ellipse.b)

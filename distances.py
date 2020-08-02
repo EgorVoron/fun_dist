@@ -45,7 +45,7 @@ class DistanceBetweenFunctions(Distance):
 
 
 def func2func(func_a, func_b, init_args=(0, 0), maxiter=500):
-    almost_zero = 1e-10
+    almost_zero = 1e-4
     dist = DistanceBetweenFunctions(func_a=func_a, func_b=func_b)
     result = dist.find_minimal_dist(init_args, maxiter)
     min_args = result.args
@@ -74,10 +74,11 @@ def point2func(*, point: Point, func, init_args=(0, 0), maxiter=500):
 
 
 def point_in_circle(point: Point, circle: Circle):
-    return Optimum(((point.x - circle.center.x) ** 2 + (point.y - circle.center.x) ** 2) <= circle.radius ** 2, [])
+    return (point.x - circle.center.x) ** 2 + (point.y - circle.center.x) ** 2 <= circle.radius ** 2
 
 
 def point2circle(*, point: Point, circle: Circle) -> float:
     if point_in_circle(point, circle):
         print('POINT INSIDE THE CIRCLE')
+        return 0
     return point2point(point_1=point, point_2=circle.center) - circle.radius
