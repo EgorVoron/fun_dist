@@ -16,5 +16,5 @@ def a(x):
 def b(x):
     return (x - 4) ** 2
 
-print(func2func(a, b).distance)  # 2.2360679793027156
+print(func2func(a, b))  # 2.2360679793027156
 ```
