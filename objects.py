@@ -5,6 +5,14 @@ class Point:
     def __init__(self, x: float, y: float):
         self.x = x
         self.y = y
+        self.system_changed = False
+
+    def change_system(self, dx, dy):
+        if self.system_changed:
+            raise ValueError('System is already changed')
+        self.x = self.x - dx
+        self.y = self.y - dy
+        self.system_changed = True
 
 
 class Circle:

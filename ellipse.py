@@ -1,26 +1,20 @@
 from math import sqrt
+from objects import Point, Ellipse
 from sympy.solvers import solve
 from sympy import Symbol
-from sympy.geometry import Point2D
-import mpmath
-import sys
-sys.modules['sympy.mpmath'] = mpmath
-
-from objects import *
 
 
 def f(x, a, b):
     return b * sqrt(1 - (x ** 2 / a ** 2))
 
 
-def D(A: Point2D, x: float, a: float, b: float):
+def D(A: Point, x: float, a: float, b: float):
     return sqrt((x - A.x) ** 2 + (f(x, a, b) - A.y) ** 2)
 
 
-def nearest_point(A: Point2D, a: float, b: float):
+def get_nearest_point(A: Point, a: float, b: float):
     if A.y < 0:
-        A = Point2D(A.x, -A.y)
-    A
+        A = Point(A.x, -A.y)
     k = 2 - (2 * b ** 2) / (a ** 2)
     p = (2 * b * A.y) / (a ** 2)
     x = Symbol('x')
@@ -34,14 +28,10 @@ def nearest_point(A: Point2D, a: float, b: float):
         ans = min(positive_answers)
     else:
         ans = max(negative_answers)
-    return Point2D(ans, f(ans, a, b))
+    return Point(ans, f(ans, a, b))
 
 
-def point_in_ellipse(point: Point, ellipse: Ellipse):
-    return ((point.x / ellipse.a) ** 2 + (point.y / ellipse.b) ** 2) < 1
-
-
-def point2ellipse(*, point: Point, ellipse: Ellipse):
-    if point_in_ellipse(point, ellipse):
-        print('POINT INSIDE THE ELLIPSE')
-    return D(point, nearest_point(point, ellipse.a, ellipse.b).x, ellipse.a, ellipse.b)
+def point2ellipse(point: Point, ellipse: Ellipse):
+    point.change_system(dx=ellipse.center.x, dy=ellipse.center.y)
+    nearest_point = get_nearest_point(point, ellipse.a, ellipse.b)
+    return D(point, nearest_point.x, ellipse.a, ellipse.b)

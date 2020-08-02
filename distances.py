@@ -1,7 +1,7 @@
 from scipy.optimize import fmin
 from math import sqrt
 from objects import Point, Circle
-from ellipse import point2ellipse
+
 
 def pythagoras(dx, dy):
     return sqrt(dx ** 2 + dy ** 2)
@@ -44,7 +44,7 @@ class DistanceBetweenFunctions(Distance):
         return point2point(point_a, point_b)
 
 
-def func2func(func_a, func_b, init_args=(0, 0), maxiter=500) -> Optimum:
+def func2func(func_a, func_b, init_args=(0, 0), maxiter=500):
     almost_zero = 1e-10
     dist = DistanceBetweenFunctions(func_a=func_a, func_b=func_b)
     result = dist.find_minimal_dist(init_args, maxiter)
@@ -52,7 +52,7 @@ def func2func(func_a, func_b, init_args=(0, 0), maxiter=500) -> Optimum:
     if abs(func_a(min_args[0]) - func_b(min_args[1])) < almost_zero:
         result.distance = 0
         print('FUNCTIONS INTERSECT')
-    return result
+    return result.distance
 
 
 class DistanceBetweenPointAndFunction(Distance):
@@ -66,15 +66,15 @@ class DistanceBetweenPointAndFunction(Distance):
         return point2point(self.point, point_on_func)
 
 
-def point2func(*, point: Point, func, init_args=(0, 0), maxiter=500) -> Optimum:
+def point2func(*, point: Point, func, init_args=(0, 0), maxiter=500):
     if func(point.x) == point.y:
         return Optimum(distance=0, args=[point.x])
     dist = DistanceBetweenPointAndFunction(point=point, func=func)
-    return dist.find_minimal_dist(init_args, maxiter)
+    return dist.find_minimal_dist(init_args, maxiter).distance
 
 
 def point_in_circle(point: Point, circle: Circle):
-    return ((point.x - circle.center.x) ** 2 + (point.y - circle.center.x) ** 2) <= circle.radius ** 2
+    return Optimum(((point.x - circle.center.x) ** 2 + (point.y - circle.center.x) ** 2) <= circle.radius ** 2, [])
 
 
 def point2circle(*, point: Point, circle: Circle) -> float:
