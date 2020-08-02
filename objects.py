@@ -8,9 +8,9 @@ class Point:
 
 
 class Circle:
-    def __init__(self, center: Point, rad: float):
+    def __init__(self, center: Point, radius: float):
         self.center = center
-        self.rad = rad
+        self.radius = radius
 
 
 class Ellipse:

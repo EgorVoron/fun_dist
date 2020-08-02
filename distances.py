@@ -1,7 +1,7 @@
 from scipy.optimize import fmin
-from math import sqrt, atan, pi, cos
-from objects import Point, Circle, Ellipse
-
+from math import sqrt
+from objects import Point, Circle
+from ellipse import point2ellipse
 
 def pythagoras(dx, dy):
     return sqrt(dx ** 2 + dy ** 2)
@@ -74,56 +74,10 @@ def point2func(*, point: Point, func, init_args=(0, 0), maxiter=500) -> Optimum:
 
 
 def point_in_circle(point: Point, circle: Circle):
-    return ((point.x - circle.center.x) ** 2 + (point.y - circle.center.x) ** 2) <= circle.rad ** 2
-
-
-def point_in_ellipse(point: Point, ellipse: Ellipse):
-    return ((point.x / ellipse.a) ** 2 + (point.y / ellipse.b) ** 2) < 1
+    return ((point.x - circle.center.x) ** 2 + (point.y - circle.center.x) ** 2) <= circle.radius ** 2
 
 
 def point2circle(*, point: Point, circle: Circle) -> float:
     if point_in_circle(point, circle):
         print('POINT INSIDE THE CIRCLE')
-    return point2point(point_1=point, point_2=circle.center) - circle.rad
-
-
-def decart2polar(point: Point):
-    r = sqrt(point.x ** 2 + point.y ** 2)
-    if point.x > 0 and point.y >= 0:
-        theta = atan(point.y / point.x)
-    elif point.x > 0 and point.y < 0:
-        theta = atan(point.y / point.x) + 2 * pi
-    elif point.x < 0:
-        theta = atan(point.y / point.x) + pi
-    elif point.x == 0 and point.y > 0:
-        theta = pi / 2
-    elif point.x == 0 and point.y < 0:
-        theta = 3 * pi / 2
-    else:
-        ValueError('Point cannot be converted into polar coordinates')
-    return theta, r
-
-
-class PolarPoint:
-    def __init__(self, point: Point):
-        self.theta, self.r = decart2polar(point)
-
-
-class DistanceBetweenPointAndEllipse(Distance):
-    def __init__(self, point: Point, ellipse: Ellipse):
-        self.polar_point = PolarPoint(point)
-        self.polar_ellipse = Ellipse(center=Point(0, 0), a=ellipse.a, b=ellipse.b)
-
-    def dist_func(self, argument):
-        theta = argument[0]
-        return sqrt(self.polar_point.r ** 2 - 2 * self.polar_point.r * self.polar_ellipse.polar_func(theta)
-                    * cos(self.polar_point.theta - theta) + self.polar_ellipse.polar_func(theta) ** 2)
-
-
-def point2ellipse(*, point: Point, ellipse: Ellipse, init_args=(0), maxiter=500):
-    if point_in_ellipse(point, ellipse):
-        print('POINT INSIDE THE ELLIPSE')
-    point_in_polar = Point(point.x - ellipse.center.x, point.y - ellipse.center.y)
-    dist = DistanceBetweenPointAndEllipse(point=point_in_polar, ellipse=ellipse)
-    result = dist.find_minimal_dist(init_args, maxiter)
-    return result
+    return point2point(point_1=point, point_2=circle.center) - circle.radius
