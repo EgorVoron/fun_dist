@@ -4,6 +4,7 @@ A python package, that provides functions for calculating **distances** between 
 ### Dependencies
 * Python3 >= 3.6
 * [Scipy](https://github.com/scipy/scipy)
+* [Sympy](https://github.com/sympy/sympy)
 
 ### Example
 ```
