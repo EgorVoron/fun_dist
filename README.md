@@ -1,5 +1,5 @@
 # fun_dist
-A python package, that provides functions for calculating **distances** between points, functions, circles and ellipses and finding **tangents** of functions and circles
+A python package, that provides functions for calculating **distances** between points, functions, circles and ellipses and finding **tangents** of functions
 
 ### Dependencies
 * Python3 >= 3.6

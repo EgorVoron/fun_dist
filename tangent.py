@@ -1,5 +1,6 @@
-from distances import point2point, pythagoras
-from objects import Point, Circle, LinearFunction, Ellipse
+from distances import point2point
+from classes import Point, Circle, LinearFunction
+
 from math import sqrt
 
 
@@ -11,27 +12,11 @@ def derivative(f, x):
 
 def func_tangent(f, x_0) -> LinearFunction:
     deriv = derivative(f, x_0)
-    k = deriv
-    b = -deriv * x_0 + f(x_0)
+    k = round(deriv, 5)
+    b = round(-deriv * x_0 + f(x_0), 5)
     linear = LinearFunction(k, b)
     return linear
 
 
-def circle_tangent(point: Point, circle: Circle) -> LinearFunction:
-    k = -point.x / point.y
-    if point.y == 0:
-        raise ValueError('Cannot describe tangent as a function')
-    b = circle.radius ** 2 / point.y
-    return LinearFunction(k, b)
-
-
-def ellipse_tangent(point: Point, ellipse: Ellipse) -> LinearFunction:
-    k = -point.x * ellipse.b ** 2 / (ellipse.a ** 2 * point.y)
-    if point.y == 0:
-        raise ValueError('Cannot describe tangent as a function')
-    b = ellipse.b ** 2 / point.y
-    return LinearFunction(k, b)
-
-
 def circle_tangent_len(point: Point, circle: Circle) -> float:
-    return pythagoras(point2point(point, circle.center), circle.radius)
+    return sqrt(point2point(point, circle.center) ** 2 - circle.radius ** 2)

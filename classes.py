@@ -43,3 +43,6 @@ class LinearFunction:
             return self.k * x + self.b
 
         return func
+
+    def __str__(self):
+        return str(self.k) + 'x + ' + str(self.b)

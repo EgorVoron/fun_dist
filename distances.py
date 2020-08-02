@@ -1,6 +1,6 @@
 from scipy.optimize import fmin
 from math import sqrt
-from objects import Point, Circle
+from classes import Point, Circle
 
 
 def pythagoras(dx, dy):

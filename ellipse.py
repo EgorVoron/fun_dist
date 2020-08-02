@@ -1,5 +1,5 @@
 from math import sqrt
-from objects import Point, Ellipse
+from classes import Point, Ellipse
 from sympy.solvers import solve
 from sympy import Symbol
 
