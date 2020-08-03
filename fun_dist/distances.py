@@ -89,7 +89,7 @@ class DistanceBetweenPointAndFunction(Distance):
 
 def point2func(*, point: Point, func, init_args=(0, 0), maxiter=500):
     if func(point.x) == point.y:
-        return Optimum(distance=0, args=[point.x])
+        return 0
     dist = DistanceBetweenPointAndFunction(point=point, func=func)
     return dist.find_minimal_dist(init_args, maxiter).distance
 
