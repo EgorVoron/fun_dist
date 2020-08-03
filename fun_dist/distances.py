@@ -4,16 +4,29 @@ from fun_dist.classes import Point, Circle
 
 
 def pythagoras(dx, dy):
+    """Returns square root (dx^2 + dy^2). Is used for calculating hypotenuse's length using Pythagorean theorem
+    :param dx: leg, float
+    :param dy: leg, float
+    :return: length of the hypotenuse, float
+    """
     return sqrt(dx ** 2 + dy ** 2)
 
 
 def point2point(point_1: Point, point_2: Point):
+    """Returns distance between two points in 2D space
+    :param point_1: first point coordinates, Point
+    :param point_2: second point coordinates, Point
+    :return: distance between point_1 and point_2, float
+    """
     dx = point_1.x - point_2.x
     dy = point_1.y - point_2.y
     return pythagoras(dx, dy)
 
 
 class Optimum(object):
+    """
+    Some function's optimum value and it's coordinates in n-dimensional space
+    """
     def __init__(self, distance: float, args: list):
         self.args = args
         self.distance = distance
@@ -23,10 +36,18 @@ class Optimum(object):
 
 
 class Distance(object):
+    """
+    Abstract class with realized find_minimal_dist method
+    """
     def dist_func(self, *args):
+        # Abstract distance function
         return 0
 
     def find_minimal_dist(self, *args):
+        """
+        Finds global minimum of distance function
+        :return: Optimum object with minimum value and it's coordinates in n-dimensional space
+        """
         init_args, max_iter = args
         min_args = fmin(self.dist_func, init_args, maxiter=max_iter, disp=False)
         return Optimum(self.dist_func(min_args), min_args)
