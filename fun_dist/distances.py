@@ -1,6 +1,8 @@
-from scipy.optimize import fmin
-from math import sqrt
 from fun_dist.classes import Point, Circle
+
+from math import sqrt
+
+from scipy.optimize import fmin
 
 
 def pythagoras(dx, dy):
@@ -27,6 +29,7 @@ class Optimum(object):
     """
     Some function's optimum value and it's coordinates in n-dimensional space
     """
+
     def __init__(self, distance: float, args: list):
         self.args = args
         self.distance = distance
@@ -39,6 +42,7 @@ class Distance(object):
     """
     Abstract class with realized find_minimal_dist method
     """
+
     def dist_func(self, *args):
         # Abstract distance function
         return 0

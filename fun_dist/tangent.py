@@ -1,7 +1,7 @@
+from math import sqrt
+
 from fun_dist.distances import point2point
 from fun_dist.classes import Point, Circle, LinearFunction
-
-from math import sqrt
 
 
 def derivative(f, x):
