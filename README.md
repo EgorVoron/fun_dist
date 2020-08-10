@@ -23,3 +23,17 @@ def b(x):
 
 print(func2func(a, b))  # 2.2360679793027156
 ```
+
+```
+Includes classes:
+Point, Circle, Ellipse, LinearFunction
+
+Includes functions: 
+point2point - returns distance between two objects of class Point
+point2func - returns minimal distance between object of class Point and function
+func2func - returns minimal distance between two functions
+point2circle - returns minimal distance between object of class Point and object of class Circle
+point2ellipse - returns minimal distance between object of class Point and object of class Ellipse
+func_tangent - returns object of class LinearFunction, which is tangent of input function
+circle_tangent_len - returns length of tangent from input point to input circle
+```
