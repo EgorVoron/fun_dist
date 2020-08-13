@@ -44,3 +44,37 @@ def point2ellipse(point: Point, ellipse: Ellipse):
     point.change_system(dx=ellipse.center.x, dy=ellipse.center.y)
     nearest_point = get_nearest_point(point, ellipse.a, ellipse.b)
     return D(point, nearest_point.x, ellipse.a, ellipse.b)
+
+
+def ellipse_tangent_len(point: Point, ellipse: Ellipse):
+    a = ellipse.a
+    b = ellipse.b
+
+    def el_1(x):
+        return b * sqrt(1 - x ** 2 / a ** 2)
+
+    def el_2(x):
+        return -el_1(x)
+
+    point.change_system(ellipse.center.x, ellipse.center.y)
+    x_a = point.x
+    y_a = point.y
+    q = b ** 2 / y_a
+    g = (x_a * b ** 2) / (y_a * a ** 2)
+    A = b ** 2 + a ** 2 * g ** 2
+    B = -2 * a ** 2 * q * g
+    C = a ** 2 * q ** 2 - a ** 2 * b ** 2
+    x_1 = (-B - sqrt(B ** 2 - 4 * A * C)) / (2 * A)
+    x_2 = (-B + sqrt(B ** 2 - 4 * A * C)) / (2 * A)
+
+    if abs(x_a) > a:
+        if y_a >= 0:
+            points_list = [Point(x_1, el_1(x_1)), Point(x_2, el_2(x_2))]
+        else:
+            points_list = [Point(x_1, el_2(x_1)), Point(x_2, el_1(x_2))]
+    else:
+        if y_a >= 0:
+            points_list = [Point(x_1, el_1(x_1)), Point(x_2, el_1(x_2))]
+        else:
+            points_list = [Point(x_1, el_2(x_1)), Point(x_2, el_2(x_2))]
+    return points_list
