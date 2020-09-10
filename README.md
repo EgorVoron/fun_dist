@@ -7,6 +7,7 @@ A python package, that provides functions for calculating **distances** between 
 
 
 ### Dependencies
+* [Numpy](https://github.com/numpy/numpy)
 * [Scipy](https://github.com/scipy/scipy)
 * [Sympy](https://github.com/sympy/sympy)
 

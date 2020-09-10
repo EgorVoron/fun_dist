@@ -1,9 +1,9 @@
-from fun_dist.classes import Point, Circle
 from warnings import warn
-
 from math import sqrt
 
 from scipy.optimize import fmin
+
+from fun_dist.classes import Point, Circle
 
 
 def pythagoras(dx, dy):

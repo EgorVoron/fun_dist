@@ -1,9 +1,10 @@
-from fun_dist.classes import Point, Ellipse
 from warnings import warn
 from math import sqrt
 
 from sympy.solvers import solve
 from sympy import Symbol
+
+from fun_dist.classes import Point, Ellipse
 
 
 def f(x, a, b):

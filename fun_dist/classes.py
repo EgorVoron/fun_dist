@@ -1,4 +1,5 @@
 from math import sin, cos, sqrt
+
 from fun_dist.rotate import get_rotated_coordinates
 
 
