@@ -1,4 +1,5 @@
 from fun_dist.classes import Point, Circle
+from warnings import warn
 
 from math import sqrt
 
@@ -104,6 +105,6 @@ def point_in_circle(point: Point, circle: Circle):
 
 def point2circle(*, point: Point, circle: Circle) -> float:
     if point_in_circle(point, circle):
-        print('POINT INSIDE THE CIRCLE')
+        warn('POINT INSIDE THE CIRCLE', stacklevel=2)
         return 0
     return point2point(point_1=point, point_2=circle.center) - circle.radius

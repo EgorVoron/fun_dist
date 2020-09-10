@@ -1,5 +1,5 @@
 from fun_dist.classes import Point, Ellipse
-
+from warnings import warn
 from math import sqrt
 
 from sympy.solvers import solve
@@ -41,7 +41,7 @@ def point_in_ellipse(point: Point, ellipse: Ellipse):
 
 def point2ellipse(point: Point, ellipse: Ellipse):
     if point_in_ellipse(point, ellipse):
-        print('POINT INSIDE THE ELLIPSE')
+        warn('POINT INSIDE THE ELLIPSE', stacklevel=2)
         return 0
     point = point.get_changed_point(dx=ellipse.center.x, dy=ellipse.center.y, angle=ellipse.angle)
     ellipse = ellipse.get_changed_ellipse()
