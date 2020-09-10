@@ -34,14 +34,17 @@ def get_nearest_point(A: Point, a: float, b: float):
 
 
 def point_in_ellipse(point: Point, ellipse: Ellipse):
+    point = point.get_changed_point(ellipse.center.x, ellipse.center.y, angle=ellipse.angle)
+    ellipse = ellipse.get_changed_ellipse()
     return (point.x / ellipse.a) ** 2 + (point.y / ellipse.b) ** 2 <= 1
 
 
 def point2ellipse(point: Point, ellipse: Ellipse):
-    if point2ellipse(point, ellipse):
+    if point_in_ellipse(point, ellipse):
         print('POINT INSIDE THE ELLIPSE')
         return 0
-    point.change_system(dx=ellipse.center.x, dy=ellipse.center.y)
+    point = point.get_changed_point(dx=ellipse.center.x, dy=ellipse.center.y, angle=ellipse.angle)
+    ellipse = ellipse.get_changed_ellipse()
     nearest_point = get_nearest_point(point, ellipse.a, ellipse.b)
     return D(point, nearest_point.x, ellipse.a, ellipse.b)
 
@@ -56,7 +59,7 @@ def ellipse_tangent_len(point: Point, ellipse: Ellipse):
     def el_2(x):
         return -el_1(x)
 
-    point.change_system(ellipse.center.x, ellipse.center.y)
+    point = point.get_changed_point(ellipse.center.x, ellipse.center.y)
     x_a = point.x
     y_a = point.y
     q = b ** 2 / y_a

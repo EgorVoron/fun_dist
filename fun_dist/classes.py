@@ -1,4 +1,5 @@
 from math import sin, cos, sqrt
+from fun_dist.rotate import get_rotated_coordinates
 
 
 class Point:
@@ -7,12 +8,14 @@ class Point:
         self.y = y
         self.system_changed = False
 
-    def change_system(self, dx, dy):
-        if self.system_changed:
-            raise ValueError('System is already changed')
-        self.x = self.x - dx
-        self.y = self.y - dy
-        self.system_changed = True
+    def get_changed_point(self, dx, dy, angle=0):
+        new_x, new_y = get_rotated_coordinates(alpha=angle, point=self)
+        new_x -= dx
+        new_y -= dy
+        return Point(new_x, new_y)
+
+    def __str__(self):
+        return f'({self.x}, {self.y})'
 
 
 class Circle:
@@ -20,17 +23,28 @@ class Circle:
         self.center = center
         self.radius = radius
 
+    def __str__(self):
+        return f'center = {self.center}, radius = {self.radius}'
+
 
 class Ellipse:
-    def __init__(self, center: Point, a: float, b: float):
-        self.center = center
+    def __init__(self, center: Point, a: float, b: float, angle: float = 0):
         self.a = a
         self.b = b
+        self.angle = angle
+        self.center = center
 
         def ellipse_polar_func(theta):
             return sqrt(1 / ((cos(theta) / a) ** 2 + (sin(theta) / b) ** 2))
 
         self.polar_func = ellipse_polar_func
+
+    def get_changed_ellipse(self):
+        return Ellipse(center=Point(*get_rotated_coordinates(self.angle, self.center)) if self.angle else self.center,
+                       a=self.a, b=self.b)
+
+    def __str__(self):
+        return f'center = {self.center}, a = {self.a}, b = {self.b}, angle = {self.angle}'
 
 
 class LinearFunction:
