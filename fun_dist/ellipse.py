@@ -21,8 +21,8 @@ def get_nearest_point(A: Point, a: float, b: float):
     p = (2 * b * A.y) / (a ** 2)
     x = Symbol('x')
     answers = solve(-k ** 2 * x ** 4 + 4 * A.x * k * x ** 3 + (
-            k ** 2 * a ** 2 - 4 * A.x ** 2 - a ** 2 * p ** 2) * x ** 2 - 4 * A.x * k * x * a ** 2 + 4 * A.x ** 2 * a ** 2,
-                    x)
+            k ** 2 * a ** 2 - 4 * A.x ** 2 - a ** 2 * p ** 2)
+                    * x ** 2 - 4 * A.x * k * x * a ** 2 + 4 * A.x ** 2 * a ** 2, x)
     real_answers = [ans for ans in answers if complex(ans).imag == 0.0]
     positive_answers = [ans for ans in real_answers if ans > 0]
     negative_answers = [ans for ans in real_answers if ans <= 0]
