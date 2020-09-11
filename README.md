@@ -6,10 +6,17 @@
 A python package, that provides functions for calculating **distances** between points, functions, circles and ellipses and finding **tangents** of functions
 
 
-### Dependencies
+##Dependencies
 * [Numpy](https://github.com/numpy/numpy)
 * [Scipy](https://github.com/scipy/scipy)
 * [Sympy](https://github.com/sympy/sympy)
+
+## What's new?
+Last version - 0.0.4-beta
+* Rotated ellipse ("angle" in arguments of Ellipse class)
+* Math objects are not mutable now
+* Some bugs fixed
+
 
 ### Example
 ```

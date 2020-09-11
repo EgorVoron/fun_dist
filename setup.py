@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="fun_dist",
-    version="0.1.0-beta",
+    version="0.0.4-beta",
     author="Egor Voron",
     author_email="ekvoron01@gmail.com",
     description="A python package, that provides functions for calculating distances and finding tangents of "
