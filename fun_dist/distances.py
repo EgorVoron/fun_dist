@@ -92,7 +92,7 @@ class DistanceBetweenPointAndFunction(Distance):
         return point2point(self.point, point_on_func)
 
 
-def point2func(*, point: Point, func, init_args=(0, 0), maxiter=500):
+def point2func(point: Point, func, init_args=(0, 0), maxiter=500):
     if func(point.x) == point.y:
         return 0
     dist = DistanceBetweenPointAndFunction(point=point, func=func)
@@ -103,7 +103,7 @@ def point_in_circle(point: Point, circle: Circle):
     return (point.x - circle.center.x) ** 2 + (point.y - circle.center.x) ** 2 <= circle.radius ** 2
 
 
-def point2circle(*, point: Point, circle: Circle) -> float:
+def point2circle(point: Point, circle: Circle) -> float:
     if point_in_circle(point, circle):
         warn('POINT INSIDE THE CIRCLE', stacklevel=2)
         return 0
