@@ -5,6 +5,7 @@ from sympy.solvers import solve
 from sympy import Symbol
 
 from fun_dist.classes import Point, Ellipse
+from fun_dist import point2point
 
 
 def f(x, a, b):
@@ -51,6 +52,8 @@ def point2ellipse(point: Point, ellipse: Ellipse):
 
 
 def ellipse_tangent_len(point: Point, ellipse: Ellipse):
+    # not tested yet
+    warn('Function is not tested', stacklevel=2)
     a = ellipse.a
     b = ellipse.b
 
@@ -81,4 +84,4 @@ def ellipse_tangent_len(point: Point, ellipse: Ellipse):
             points_list = [Point(x_1, el_1(x_1)), Point(x_2, el_1(x_2))]
         else:
             points_list = [Point(x_1, el_2(x_1)), Point(x_2, el_2(x_2))]
-    return points_list
+    return [point2point(point, point_on_ellipse) for point_on_ellipse in points_list]
