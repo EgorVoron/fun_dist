@@ -6,8 +6,10 @@ def matrix2coordinates(matrix):
 
 
 def get_rotate_matrix(alpha):
-    return np.array([[np.cos(alpha), -np.sin(alpha)],
-                     [np.sin(alpha), np.cos(alpha)]])
+    sine = np.sin(alpha)
+    cosine = np.cos(alpha)
+    return np.array([[cosine, -sine],
+                     [sine, cosine]])
 
 
 def get_rotated_coordinates(alpha, point):
